@@ -1,20 +1,13 @@
-# ============================================================
-# MISSION CONTROL AI
-# Sistema Inteligente de Monitoramento de Missão Espacial
-# GS2026.1 - Pensamento Computacional e Automação com Python
-# ============================================================
-
 NOME_MISSAO = "Nova Frontier X1"
 NOME_EQUIPE  = "Equipe Vega"
 
-# Matriz principal: [temperatura, comunicacao, bateria, oxigenio, estabilidade]
 dados_missao = [
-    [22, 95, 91, 98, 93],   # Ciclo 1 - Início da missão
-    [26, 83, 75, 95, 87],   # Ciclo 2 - Estabilização dos sistemas
-    [32, 61, 54, 90, 68],   # Ciclo 3 - Aquecimento e queda de sinal
-    [37, 40, 35, 85, 52],   # Ciclo 4 - Alerta de energia e temperatura
-    [41, 25, 17, 76, 33],   # Ciclo 5 - Risco operacional crítico
-    [35, 52, 30, 80, 48],   # Ciclo 6 - Tentativa de recuperação
+    [22, 95, 91, 98, 93],
+    [26, 83, 75, 95, 87],
+    [32, 61, 54, 90, 68],
+    [37, 40, 35, 85, 52],
+    [41, 25, 17, 76, 33],
+    [35, 52, 30, 80, 48],
 ]
 
 areas_monitoradas = [
@@ -26,12 +19,7 @@ areas_monitoradas = [
 ]
 
 
-# ─────────────────────────────────────────────
-# FUNÇÕES DE ANÁLISE POR SENSOR
-# ─────────────────────────────────────────────
-
 def analisar_temperatura(valor):
-    """Retorna (classificacao, pontuacao, descricao)."""
     if valor < 18:
         return "ATENÇÃO", 1, "Temperatura abaixo do ideal"
     elif valor <= 30:
@@ -78,12 +66,7 @@ def analisar_estabilidade(valor):
         return "NORMAL", 0, "Estabilidade operacional adequada"
 
 
-# ─────────────────────────────────────────────
-# FUNÇÕES DE CLASSIFICAÇÃO E ANÁLISE
-# ─────────────────────────────────────────────
-
 def classificar_ciclo(pontuacao):
-    """Classifica o ciclo com base na pontuação de risco acumulada."""
     if pontuacao <= 2:
         return "MISSÃO ESTÁVEL"
     elif pontuacao <= 5:
@@ -93,7 +76,6 @@ def classificar_ciclo(pontuacao):
 
 
 def gerar_recomendacao(resultados_ciclo, classificacao):
-    """Gera recomendação automática com base nos alertas do ciclo."""
     criticos = [r[0] for r in resultados_ciclo if r[1] == "CRÍTICO"]
 
     if classificacao == "MISSÃO ESTÁVEL":
@@ -124,7 +106,6 @@ def gerar_recomendacao(resultados_ciclo, classificacao):
 
 
 def analisar_tendencia(riscos_ciclos):
-    """Compara risco do primeiro e último ciclo para indicar tendência."""
     primeiro = riscos_ciclos[0]
     ultimo   = riscos_ciclos[-1]
 
@@ -137,7 +118,6 @@ def analisar_tendencia(riscos_ciclos):
 
 
 def identificar_area_mais_afetada(pontos_por_area):
-    """Retorna o nome da área com maior pontuação acumulada."""
     maior_indice = 0
     for i in range(1, len(pontos_por_area)):
         if pontos_por_area[i] > pontos_por_area[maior_indice]:
@@ -145,15 +125,7 @@ def identificar_area_mais_afetada(pontos_por_area):
     return areas_monitoradas[maior_indice]
 
 
-# ─────────────────────────────────────────────
-# FUNÇÃO DE ANÁLISE DE UM CICLO COMPLETO
-# ─────────────────────────────────────────────
-
 def analisar_ciclo(ciclo):
-    """
-    Recebe uma linha da matriz e retorna lista de tuplas:
-    (area, classificacao, pontuacao, descricao)
-    """
     temp, com, bat, oxi, est = ciclo
     return [
         ("Temperatura",  *analisar_temperatura(temp)),
@@ -164,12 +136,7 @@ def analisar_ciclo(ciclo):
     ]
 
 
-# ─────────────────────────────────────────────
-# FUNÇÃO DO RELATÓRIO FINAL
-# ─────────────────────────────────────────────
-
 def gerar_relatorio_final(riscos, pontos_area, medias):
-    """Exibe o relatório consolidado da missão."""
     n = len(riscos)
     ciclo_critico  = riscos.index(max(riscos)) + 1
     risco_medio    = sum(riscos) / n
@@ -200,7 +167,6 @@ def gerar_relatorio_final(riscos, pontos_area, medias):
     print(f"\nÁrea mais afetada:\n  {area_afetada}")
     print(f"\nClassificação final da missão:\n  {class_final}")
 
-    # Conclusão automática
     print("\nConclusão:")
     if class_final == "MISSÃO ESTÁVEL":
         print("A missão transcorreu dentro dos parâmetros normais. "
@@ -216,10 +182,6 @@ def gerar_relatorio_final(riscos, pontos_area, medias):
     print("=" * 60)
 
 
-# ─────────────────────────────────────────────
-# EXECUÇÃO PRINCIPAL
-# ─────────────────────────────────────────────
-
 def main():
     print("=" * 60)
     print("MISSION CONTROL AI")
@@ -230,8 +192,8 @@ def main():
     print("=" * 60)
 
     riscos_ciclos  = []
-    pontos_por_area = [0] * 5   # acumulador por coluna
-    somas           = [0.0] * 5 # para calcular médias
+    pontos_por_area = [0] * 5
+    somas           = [0.0] * 5
 
     for numero_ciclo, ciclo in enumerate(dados_missao, start=1):
         print(f"\nCICLO {numero_ciclo}")
