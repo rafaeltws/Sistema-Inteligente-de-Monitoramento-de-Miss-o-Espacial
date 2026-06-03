@@ -126,5 +126,6 @@ Pontuação máxima por ciclo: **10 pontos** (5 sensores × 2).
 
 ## 👥 Equipe
 
-- **Nome da missão:** Nova Frontier X1  
-- **Nome da equipe:** Equipe Vega
+- **Rafael Sá** RM569223  
+- **João Melo** RM571116
+-  **Gabriel Souza** RM571583
